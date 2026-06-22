@@ -19,8 +19,8 @@ This community was chosen because book-lovers can be strongly opinonated about w
 | Label   | Definition  | Common Signals
 | ------- | ----------- | ----------- |
 | Questions/Discussion          | These posts focus on inviting conversation, seeking, or sharing information | question marks, what do you think, why does, did anyone notice, requests for clarification/interpretation, news/article shared |
-| Review                        | These posts focus on evaluation and personal judgement of a book.| ratings, 4/5 stars, personal reactions, really liked/didn't like, answer the question was it good |
-| Literary Analysis             | These posts focus on interpretation, themes, structure, techniques, or meaning. | discussion of theme, symbolism, character develpment, narrative structure, concrete evidence from the text, analysis of author's choices |
+| Review                        | These opinion based posts focus on evaluation and personal judgement of a book.| ratings, 4/5 stars, personal reactions, really liked/didn't like, answer the question was it good |
+| Literary Analysis             | These more formal posts focus on interpretation, themes, structure, techniques, or meaning. | discussion of theme, symbolism, character develpment, narrative structure, concrete evidence from the text, analysis of author's choices |
 
 ## Example Posts for Each Label
 ### Questions/Discussion 
@@ -33,7 +33,8 @@ This community was chosen because book-lovers can be strongly opinonated about w
 ### Review
 
 * **Example 1**: "Last year I read The Hobbit and The Lord of the Rings trilogy. Some thoughts....This was a rough read for me. Almost all of the little things I hadn't liked in previous books feel like they're crammed into this book" ([source](https://www.reddit.com/r/books/comments/1ualldt/last_year_i_read_the_hobbit_and_the_lord_of_the/))
-* **Example 2**: "1984 by George Orwell...The premise alone pulled me in immediately. dark, oppressive, and honestly kind of suffocating. The entire book just reeks of despair and brokenness in a way that feels intentional and relentless. It’s not just the setting, it’s the tone. everything feels controlled, hollow, and stripped of hope" ([source](https://www.reddit.com/r/books/comments/1u4qjkl/1984_by_george_orwell/))
+* **Example 2**: "The Things We Never Say (Elizabeth Strout) - I don't understand the rating on this book
+This book is 4.4 on Amazon (4.5k ratings) and 4.3 on Goodreads (10k ratings). I'm looking to see if anyone here has read it and has thoughts on the writing. The author won a Pulitzer Prize for another book, and this book is clearly in the bottom three books out of about 1000 books that I have ranked. The actual writing, not the story or plot, reads on a junior high student level. On nearly every page I was asking the author; "Why are you telling me this?" She has 500 paratheticals (like this one, but I didn't count) that added nothing (really) to the sentence (the string of words that form a singular thought.) I gave the book a 1/5, something I rarely do. Please tell me where I missed the boat on this book." ([source](https://www.reddit.com/r/books/comments/1tnmhmf/the_things_we_never_say_elizabeth_strout_i_dont/))
 * **Boundary Example**: "With alternating timelines that shift from the present to the past to fill in the backstory, the pacing was too slow, and the story dragged multiple times while reading...With repetitive moments and side characters that didn’t add anything to the story, this was an unmemorable read, and that’s a shame.... give “The Children” by Melissa Albert a 2-Star rating out of 5."
     - This example is tricky since it does bring up some literary elements like pacing and character development. However, it is still overall an opinion pieces and does include a rating. ([source](https://www.reddit.com/r/books/comments/1ua03ru/review_the_children_by_melissa_albert/))
 
