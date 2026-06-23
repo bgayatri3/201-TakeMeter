@@ -60,9 +60,9 @@ Samples will be collected direclty from r/Books from the all time posts tab. The
 
 | Label   | Count | Percentage |
 | ------- | ----- | ---------- |
-| Label 1 | 86     | 43%         |
-| Label 2 | 65     | 32.5%         |
-| Label 3 | 49     | 24.5%         |
+| Question/Discussion | 86     | 43%         |
+| Review | 65     | 32.5%         |
+| Literary Analysis | 49     | 24.5%         |
 
 ### Difficult-to-Label Examples
 
