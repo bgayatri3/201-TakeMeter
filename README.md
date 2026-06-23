@@ -263,3 +263,7 @@ The spec encouraged me to hypothesize the most diffcult challenge for the model,
 ### Annotation Assistance Disclosure
 
 AI was not used during data annotation or labeling. 
+
+### Link to Video
+
+https://youtu.be/RqsRhWE3E6g
