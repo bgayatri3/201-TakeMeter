@@ -61,40 +61,8 @@ Samples will be collected direclty from r/Books from the all time posts tab. The
 | Label   | Count | Percentage |
 | ------- | ----- | ---------- |
 | Question/Discussion | 86     | 43%         |
-| Review | 65     | 32.5%         |
-| Literary Analysis | 49     | 24.5%         |
-
-### Difficult-to-Label Examples
-
-#### Example 1
-
-**Post**
-
-> "..."
-
-**Decision:** Label X
-
-**Reasoning:** Explain why.
-
-#### Example 2
-
-**Post**
-
-> "..."
-
-**Decision:** Label Y
-
-**Reasoning:** Explain why.
-
-#### Example 3
-
-**Post**
-
-> "..."
-
-**Decision:** Label Z
-
-**Reasoning:** Explain why.
+| Review | 68     | 34%         |
+| Literary Analysis | 49     | 23%         |
 
 ---
 
@@ -102,23 +70,18 @@ Samples will be collected direclty from r/Books from the all time posts tab. The
 
 ### Base Model
 
-Specify the model used for fine-tuning.
+The model is distilbert-base-uncased, and the training platform is Google Colab. 
 
 ### Training Setup
 
-* Training/validation split
-* Number of epochs
-* Batch size
-* Learning rate
-* Any preprocessing steps
+* Training/validation split: 70% train/15% validation/15% test
+* Number of epochs: 6 
+* Batch size: 16
+* Learning rate: 2e-5
 
 ### Hyperparameter Decision
 
-Discuss at least one important hyperparameter choice and why it was selected.
-
-Example:
-
-> I chose a learning rate of 2e-5 because higher values caused unstable validation loss during preliminary experiments.
+I chose to increase the number of epochs from 3 to 6 because the accuracy would jump drastically from 2 to 3. This might indiciate that while the model was still improving, training ended prematurely at 3 epochs. I saw the validation accuracy start to plateau around 4/5 epochs which also correlated with a higher accuracy score. 
 
 ---
 
@@ -130,13 +93,13 @@ Example:
 You are classifying reddit posts from r/Books.
 Assign each post to exactly one of the following categories.
 
-Question/Discussion:	These posts focus on inviting conversation, seeking, or sharing information
+Question/Discussion:	These posts focus on inviting conversation, seeking, or sharing information. Look for question marks, what do you think, why does, did anyone notice, requests for clarification/interpretation, news/article shared. 
 Example: "Why “book-shaming” won’t solve the children’s literacy crisis — The nation’s official advocate for children’s books says most of them are “crud.” But matters of literary quality don’t explain why kids aren’t reading"
 
-Review: These opinion based posts focus on evaluation and personal judgement of a book.
+Review: These opinion based posts focus on evaluation and personal judgement of a book. Look for ratings like 4/5 stars, personal or emotional reactions, really liked/didn't like, answer the question was it good.
 Example: "Last year I read The Hobbit and The Lord of the Rings trilogy. Some thoughts....This was a rough read for me. Almost all of the little things I hadn't liked in previous books feel like they're crammed into this boo"
 
-Literary Analysis: These more formal posts focus on interpretation, themes, structure, techniques, or meaning.
+Literary Analysis: These more formal posts focus on interpretation, themes, structure, techniques, or meaning. Look for discussion of theme, symbolism, character develpment, narrative structure, concrete evidence from the text, analysis of author's choices.
 Example: "The Hunchback of Notre Dame and the tragedy of mistaken identity....This theme of dualism and duplicity is likewise represented by the character of the cathedral itself. In many ways, Hunchback is Hugo’s attempt to get us to read an essay about Notre Dame and gothic architecture by dressing it up in a novel"
 
 Respond with ONLY the label name.
@@ -147,17 +110,15 @@ Question/Discussion
 Review
 Literary Analysis
 ```
+### Baseline Evaluation
 
-### Evaluation Procedure
-![alt text](image.png)
+| Label   | Precision | Recall | F1 |
+| ------- | --------- | ------ | -- |
+| Question/Discussion |  0.93         |   1.00     |   0.96  |
+| Review              |  0.55         |   0.86    |  0.67  |
+| Literary Analysis   |  1.00        |   0.50     |  0.67  |
 
-Describe:
 
-* How predictions were collected
-* Number of examples evaluated
-* Any automation used
-
----
 
 ## Evaluation Results
 
@@ -165,77 +126,105 @@ Describe:
 
 | Model              | Accuracy |
 | ------------------ | -------- |
-| Zero-Shot Baseline | X.XX     |
-| Fine-Tuned Model   | X.XX     |
+| Zero-Shot Baseline | 0.80     |
+| Fine-Tuned Model   | 0.80     |
 
 ### Per-Class Metrics
 
 | Label   | Precision | Recall | F1 |
 | ------- | --------- | ------ | -- |
-| Label 1 |           |        |    |
-| Label 2 |           |        |    |
-| Label 3 |           |        |    |
+| Question/Discussion |   0.77        |    0.77    |   0.77  |
+| Review              |   0.62       |   0.71     |  0.67  |
+| Literary Analysis   |   1.00        |  0.90      |  0.95  |
 
 ### Confusion Matrix
 
-| Actual \ Predicted | Label 1 | Label 2 | Label 3 |
+| True  \ Predicted | Question/Discussion | Review | Literary Analysis |
 | ------------------ | ------- | ------- | ------- |
-| Label 1            |         |         |         |
-| Label 2            |         |         |         |
-| Label 3            |         |         |         |
+| Question/Discussion |  10       |   3      |      0   |
+| Review                |   2      |    5     |     0    |
+| Literary Analysis   |     1    |      0   |    9     |
+
+![alt text](image-1.png)
 
 ### Error Analysis
 
 #### Incorrect Prediction 1
 
-* **Actual Label:**
-* **Predicted Label:**
+* **Actual Label:** Review
+* **Predicted Label:** Question/Discussion
 * **Post:**
-* **Analysis:**
+```text
+Phantom Tollbooth was my intro to Hitchhiker’s Guide-style humor and one of my favorite children’s books
+I was in elementary school when I last read The Phantom Tollbooth, so I might be misremembering a few things, but that book was my introduction to the sort of—I dunno how to really label it, but that sort of humor that The Hitchhiker’s Guide to the Galaxy is built on. I feel like the sort of direct but misplaced logic, literal nature of things, and the personification or anthropomorphism of concepts we take for granted is a great introduction to absurdist humor (that was the word I was looking for!) to kids. Places like Dictionopolis and Digitopolis showing another side of words and numbers, for example.
+When it comes to books, I feel like the “yeah, that makes sense, I guess” brand of absurdism is the most fun and the most thought-provoking.
+```
+* **Analysis:** The model likely predicted Question/Discussion because the post focuses on the author's thoughts about absurdist humor and its impact rather than directly evaluating the book. The reflective and conversational tone makes it resemble a discussion post more than a traditional review.
 
 #### Incorrect Prediction 2
 
-* **Actual Label:**
-* **Predicted Label:**
+* **Actual Label:** Question/Discussion
+* **Predicted Label:** Review  
 * **Post:**
-* **Analysis:**
+```text
+What book had you underlining/annotating the most passages?
+I recently read Faces in the Water, by Janet Frame, and every other page had some beautiful heartbreaking passage I wanted to underline and come back to later. It was a library book, so I didn't, but I'm considering getting my own copy to re-read and annotate. It's a fictionalised account of Frame's real-life experiences in Seacliff Lunatic Asylum during the 1940s. The whole book is swept along in a feeling of helplessness and loss in captivating language. Here are a couple that really stuck with me:
+"I did not know my own identity. I was burgled of body and hung in the sky like a woman of straw."
+"There is no past or future. Using tenses to divide time is like making chalk marks on water."
+"And the days passed, packing and piling themselves together like sheets of absorbent material, deadening the sound of our lives, even to ourselves, so that perhaps if a tomorrow ever came it would not hear us; its new days would bury us, in its own name; we would be like people entombed when the rescuers, walking about in the dark waving lanterns and calling to us, eventually give up because no one answers them; sometimes they dig and find the victims dead."
+What book had you scribbling in the margins and underlining passages and copying out quotes to come back to later?
+```
+* **Analysis:** The model likely predicted Review because the post begins with a personal reaction to a book and includes several quoted passages along with praise for the writing. However, the primary purpose of the post is to ask the community a question, making Question/Discussion the correct label.
 
 #### Incorrect Prediction 3
 
-* **Actual Label:**
-* **Predicted Label:**
+* **Actual Label:** Literary Analysis
+* **Predicted Label:** Question/Discussion  (confidence: 0.88)
 * **Post:**
-* **Analysis:**
+```text
+Comics and literature, two different media. Many comics are published in book format. Even webcomics tend to be, in most cases, works that could be published in that format, with exceptions being those webcomics which make use of sound, animation or other resources which would be impossible to reproduce in print.
+That being said, comics are not literature, which is fundamentally verbal; they are instead their own medium, like sculpture or cinema, and it is quite unfortunate to see how often it is diminished in favor of associating these works with literature which is perceived as “nobler”...
+Comics themselves tend to feature textual elements, but also pictorial ones, and in a broader sense visual and spatial ones (page layout, sequentiality), and are ultimately their very own medium. A term such as “audiovisual novel” is not used outside of metaphorical contexts to refer to a movie, for instance...
+TL;DR: Comics are not literary works, nor are they less valuable as an artistic medium than literature, just as painting, sculpture, and music are not inferior to it.
+```
+* **Analysis:** The model likely predicted Question/Discussion because the post presents a broad argument about comics and literature rather than analyzing a specific literary work. Its discussion-oriented style may have obscured the analytical reasoning that led to the Literary Analysis label.
 
 ### Sample Classifications
 
 | Post      | Predicted Label | Confidence | Correct? |
 | --------- | --------------- | ---------- | -------- |
-| Example 1 |                 |            |          |
-| Example 2 |                 |            |          |
-| Example 3 |                 |            |          |
-| Example 4 |                 |            |          |
-| Example 5 |                 |            |          |
+| LitHub: A prize-winning story published in Granta was (very likely) written by AI |  Question/Discussion               |  0.95          |  yes        |
+| About redemption and liberation in Les Misérables. Jean Valjean lives tormented by guilt. What the bishop did for Jean Valjean was not to free him, but to imprison him in and immense sense of guilt tha... |   Literary Analysis              |    0.88        |    yes      |
+| Reattempted Katabasis by RF Kuang...And thank god I finished it this time so I didn't have to think about it any more. What a waste of 35$. I might have been open to like 10$ second hand, but I do no... |    Review             |     0.76       |   yes       |
+| Starving Saints by Caitlin Starling (and why I hated it). I want to start of by stating that I picked up The Starving Saints by Caitlin Starling thinking I would love it. It was in the same section... |     Review            |    0.72        |     yes     |
+|  Clicking & Not Clicking with Different Writing Styles. Ever have that moment where you open a book and immediately can tell you and that writing style are not gonna click? |    Question/Discussion             |    0.86        |   yes       |
 
 #### Correct Example Explanation
 
-Choose one correctly classified example and explain why the model's prediction was appropriate.
+<!-- Choose one correctly classified example and explain why the model's prediction was appropriate. -->
+Example number 3 is a prime example of a personal review. The model accurately identified the more informal and emotional diction from that post like "what a waste" and "thank god I finished it this time". It is clearly a post about a reader's opinion. 
 
 ---
 
 ## Reflection
+<!-- A reflection on the gap between what the model captured and what was intended — describes a specific failure pattern (a label pair, a post type, a distributional issue) rather than a generic observation like "it needs more data." -->
+
+The largest gap between the intended and the learned behavior involved distinguishing Question/Discussion posts from Review posts. Many discussion posts began with personal reading experiences or opinions before asking a question to the community. The model often focused on these opinionated opening statements and classified the post as a Review even when the primary purpose was to encourage discussion.
 
 ### What the Model Learned
 
-Discuss patterns the model appears to have captured successfully.
+<!-- Discuss patterns the model appears to have captured successfully. -->
+The model most successfully distinguishes literary analysis with both high precision and high recall for an f1 of 0.95. It did a good job of flagging these kinds of post though dicussion of symbolism, characterization, and narrative structure. It also performed decently for question/discussion, especially for broader discussion of general reading habits or new stories. The confusion matrix confirms this as well, with the highest numbers in the diagonals corresponding to these 2 labels. 
 
 ### What You Intended
 
-Compare the learned behavior to your original labeling goals.
+<!-- Compare the learned behavior to your original labeling goals. -->
+The original goal was for the model to distinguish between posts that evaluate books (Review), posts that interpret books (Literary Analysis), and posts that invite conversation (Question/Discussion). While the model largely achieved this distinction for Literary Analysis and Question/Discussion, it struggled to consistently identify Review posts. Many Review examples shared language features with the other two labels, making the intended boundary less clear than expected.
 
 ### Surprises
 
-Describe any unexpected successes or failures.
+<!-- Describe any unexpected successes or failures. -->
+The most surprising result was that the anticipated edge case between Review and Literary Analysis was not the model's primary source of error. Instead, most mistakes occurred between Review and Question/Discussion. Another unexpected result was that the fine-tuned DistilBERT model mirrored the zero-shot baseline, suggesting that the larger language model benefited from extensive pretraining and the detailed prompt definitions.
 
 ---
 
@@ -243,11 +232,13 @@ Describe any unexpected successes or failures.
 
 ### How the Specification Helped
 
-Describe one way the project specification improved your implementation process.
+<!-- Describe one way the project specification improved your implementation process. -->
+The spec helped me brainstorm how to clearly label definitions for my data. It also encouraged me to stay close to the dataset and how to use AI to help with the annotation and model evaluation. This helped make my labeling more consistent and helped me uncover patterns in the model that I hadn't noticed before. It also defined helpful terms and metrics to evaluate the success of the model. 
 
 ### Divergence from the Specification
 
-Explain one way your implementation differed from the original specification and why that change was made.
+<!-- Explain one way your implementation differed from the original specification and why that change was made. -->
+The spec encouraged me to hypothesize the most diffcult challenge for the model, and make recommendations based on that. However, the model struggling with the review section specficially was surprising to me. Also, I had to manually make some edits to ensure label consistency that the spec didn't mention. 
 
 ---
 
@@ -255,31 +246,20 @@ Explain one way your implementation differed from the original specification and
 
 ### AI Assistance Instance #1
 
-**Task:** Describe what you asked the AI to do.
+**Task:** Asked ChatGPT to review the label taxonomy and generate edge-case examples that sat between Review and Literary Analysis.
 
-**Output Used:** Explain what was incorporated.
+**Output Used:** Several generated examples were used to test whether the label definitions were sufficiently distinct before annotation began
 
-**Your Revisions:** Describe modifications or corrections you made.
+**Your Revisions:** I refined the definitions by emphasizing the difference between evaluating a book (Review) and interpreting how a book creates meaning (Literary Analysis).
 
 ### AI Assistance Instance #2
 
-**Task:** Describe what you asked the AI to do.
+**Task:** Asked ChatGPT to analyze model errors and identify common patterns in the misclassified examples.
 
-**Output Used:** Explain what was incorporated.
+**Output Used:** e AI identified recurring confusion between Question/Discussion and Review posts and suggested possible explanations for the pattern.
 
-**Your Revisions:** Describe modifications or corrections you made.
+**Your Revisions:** I manually reviewed each incorrect prediction and verified the suggested patterns before incorporating them into the evaluation section. I also rejected the AI's initial assumption that Review and Literary Analysis would be the dominant source of confusion because the confusion matrix did not support that conclusion.
 
 ### Annotation Assistance Disclosure
 
-State whether AI was used during data annotation or labeling. If used, describe exactly how it assisted and how final labeling decisions were verified.
-
----
-
-## Conclusion
-
-Summarize:
-
-* Dataset quality
-* Fine-tuning results
-* Comparison against the zero-shot baseline
-* Key lessons learned
+AI was not used during data annotation or labeling. 
